@@ -28,7 +28,7 @@ public class Projectile : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy")) 
         {
-            collision.gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
+            collision.gameObject.GetComponentsInChildren<Renderer>().material.color = Color.red; //Create Array
             Destroy(collision.gameObject, 1);
         }
         DestroyProjectile();
