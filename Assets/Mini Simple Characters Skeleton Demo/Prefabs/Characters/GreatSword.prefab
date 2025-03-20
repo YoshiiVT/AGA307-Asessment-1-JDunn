@@ -318,6 +318,7 @@ GameObject:
   - component: {fileID: 2468889828458600031}
   - component: {fileID: 1116371902028168016}
   - component: {fileID: -647637526684587072}
+  - component: {fileID: -4593943143785788148}
   m_Layer: 0
   m_Name: GreatSword
   m_TagString: Enemy
@@ -391,6 +392,19 @@ CapsuleCollider:
   m_Height: 1.5480194
   m_Direction: 1
   m_Center: {x: 0, y: 0.689024, z: 0}
+--- !u!114 &-4593943143785788148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696834749189059949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cdedc5483288ff408da79af5cbae924, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySize: 2
 --- !u!1 &1818926580354158373
 GameObject:
   m_ObjectHideFlags: 0

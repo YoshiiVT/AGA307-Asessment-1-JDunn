@@ -391,6 +391,7 @@ GameObject:
   - component: {fileID: 3854269363171675655}
   - component: {fileID: 4985691113074979274}
   - component: {fileID: 8306994932427070095}
+  - component: {fileID: -2365525613743647113}
   m_Layer: 0
   m_Name: OneHanded
   m_TagString: Enemy
@@ -465,6 +466,19 @@ CapsuleCollider:
   m_Height: 1.4870872
   m_Direction: 1
   m_Center: {x: 0, y: 0.71930504, z: 0}
+--- !u!114 &-2365525613743647113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3136820629370392942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cdedc5483288ff408da79af5cbae924, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySize: 1
 --- !u!1 &3190320679450232660
 GameObject:
   m_ObjectHideFlags: 0
