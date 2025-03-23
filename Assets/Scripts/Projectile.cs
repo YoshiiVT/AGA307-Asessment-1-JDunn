@@ -1,6 +1,7 @@
+using System.Collections;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Projectile : GameBehaviour
 {
     public GameObject hitParticles;
     /// <summary>
@@ -29,8 +30,18 @@ public class Projectile : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy")) 
         {
             collision.gameObject.GetComponentInChildren<Renderer>().material.color = Color.red; //Create Array
+            
             Destroy(collision.gameObject, 1);
+            StartCoroutine(WaitToDie(collision));
         }
         DestroyProjectile();
+       
     }
+
+    private IEnumerator WaitToDie(Collision deadEnemy)
+    {
+        yield return new WaitForSeconds(1);
+        _EM.KillEnemy(deadEnemy.gameObject);
+    }
+
 }

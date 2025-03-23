@@ -13,16 +13,17 @@ public class EnemyManager : Singleton<EnemyManager>
 {
     public int initialSpawnCount = 6;
 
-    public string killCondition = "J";
-
     private string[] enemyNames = new string[] { "Wovok", "Kadan", "Istadum", "Stratic", "Riovok", "Pokhar", "Stigan", "Nobrum", "Soutic", "Wraexor", "Yauzius", "Utozad", "Gitic", "Zothik", "Ezaurow", "Owobrum", "Vrozor", "Grethum", "Kezad", "Hekras", "Herbert", "Azerak" };
     private string[] enemySurnames = new string[] { "the Abomination", "the Corruptor", "the Doctor", "Shade", "the Livid", "the Animator", "the Plaguemaster", "Rotheart", "the Hallowed", "Doomwhisper", "the Corrupted", "Morbide", "the Reianimator", "the Fleshrender", "Mortice", "the Crippled", "the Black", "Plasma", "Calamity", "Blight " };
 
+    public EnemySize enemySize;
     public Transform[] spawnPoints;
     public GameObject[] enemyTypes;
     public List<GameObject> enemies;
 
     public int EnemyCount => enemies.Count;
+
+    public int EnemyScore;
 
     public bool NoEnemies => enemies.Count == 0;
 
@@ -30,18 +31,6 @@ public class EnemyManager : Singleton<EnemyManager>
     private void Start()
     {
         SpawnEnemies();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-            KillRandomEnemy();
-        if (Input.GetKeyDown(KeyCode.J))
-            KillSpecificEnemy(killCondition);
-        if (Input.GetKeyDown(KeyCode.H))
-            KillAllEnemies();
-        if (Input.GetKeyDown(KeyCode.I))
-            SpawnEnemy();
     }
 
     private void SpawnEnemies() 
@@ -52,29 +41,38 @@ public class EnemyManager : Singleton<EnemyManager>
         }
     }
 
-    private void SpawnEnemy()
+    public void SpawnEnemy()
     {
         int rndEnemy = Random.Range(0, enemyTypes.Length);
         int rndSpawn = Random.Range(0, spawnPoints.Length);
         int rndName = Random.Range(0, enemyNames.Length);
         int rndSurname = Random.Range(0, enemySurnames.Length);
 
+        int rndSize = Random.Range(0, 3);
+
         GameObject enemy = Instantiate(enemyTypes[rndEnemy & rndSurname], spawnPoints[rndSpawn].transform.position, spawnPoints[rndSpawn].transform.rotation);
         enemy.name = enemyNames[rndName] + " " + enemySurnames[rndSurname];
+        enemy.GetComponent<Enemy>().enemySize = (EnemySize)rndSize;
 
         enemy.GetComponent<Enemy>().Initialize(GetRandomSpawnPoint, enemy.name);
         enemies.Add(enemy);
 
         print(enemies.Count);
+
+        _UI.UpdateEnemyCount();
     }
 
-    private void KillEnemy(GameObject _enemy)
+    public void KillEnemy(GameObject _enemy)
     {
+        EnemyScore = _enemy.GetComponent<Enemy>().myScore;
+        Debug.Log(EnemyScore);
+        DeathScore();
         Destroy(_enemy);
         enemies.Remove(_enemy);
+        _UI.UpdateEnemyCount();
     }
 
-    private void KillRandomEnemy()
+    public void KillRandomEnemy()
     {
         if (NoEnemies)
             return;
@@ -83,7 +81,7 @@ public class EnemyManager : Singleton<EnemyManager>
         KillEnemy(enemies[rndEnemy]);
     }
 
-    private void KillSpecificEnemy(string _condition)
+    public void KillSpecificEnemy(string _condition)
     {
         if (NoEnemies)
             return;
@@ -97,12 +95,19 @@ public class EnemyManager : Singleton<EnemyManager>
         }
     }
 
-    private void KillAllEnemies()
+    public void KillAllEnemies()
     {
         if (NoEnemies)
             return;
 
         for(int i = EnemyCount - 1; i>= 0; i--)
             KillEnemy(enemies[i]);
+    }
+
+    public void DeathScore()
+    {
+        Debug.Log("DeathScore");
+        _GM.Score = _GM.Score + EnemyScore;
+        _UI.UpdateScore();
     }
 }

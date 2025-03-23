@@ -1,16 +1,22 @@
 using UnityEngine;
 
+
+public enum GameState
+{
+    Start,
+    Playing,
+    Paused
+}
+public enum Difficulty
+{
+    Easy,
+    Medium,
+    Hard
+}
 public class GameManager : Singleton<GameManager>
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public int Score;
+    public GameState gameState;
+    public Difficulty difficulty; 
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
